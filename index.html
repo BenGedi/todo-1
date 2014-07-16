@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="app.js"></script>
+
+
+    <style>
+        .line {
+            text-decoration: line-through;
+            color: #808080;
+        }
+    </style>
+</head>
+
+<body ng-app="todo">
+
+<div class="container" ng-controller="tasksController as tasks">
+
+    <div class="page-header">
+        <h1>Need To Do!</h1>
+
+        <p>simple introduction level angular project</p>
+    </div>
+
+    <form class="form-inline">
+
+        <div class="form-group">
+            <label for="taskTitle">Task Title</label>
+            <input type="text" class="form-control" id="taskTitle" placeholder="title..." ng-model="tasks.task.title">
+        </div>
+
+        <div class="form-group">
+            <label for="taskDesc">Description</label>
+            <input class="form-control" id="taskDesc" placeholder="description.." ng-model="tasks.task.desc">
+        </div>
+
+        <div class="form-group">
+            <button class="form-control btn btn-primary" ng-click="tasks.addTask()">{{tasks.isEdit ? 'Edit' : 'Add'}}</button>
+        </div>
+    </form>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>done</th>
+            <th>title</th>
+            <th>description</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            <tr ng-repeat="item in tasks.taskArr track by $index" ng-class="{line: item.done}">
+                <td><input class="input" type="checkbox" ng-model="item.done"/></td>
+                <td>{{item.title}}</td>
+                <td>{{item.desc}}</td>
+                <td>
+                    <button class="btn btn-danger" ng-click="tasks.removeTask(item)"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button class="btn btn-info" ng-click="tasks.editTask(item)"><span class="glyphicon glyphicon-edit"></span></button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+
+</html>
